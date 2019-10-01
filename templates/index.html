@@ -1,0 +1,36 @@
+{% extends "bootstrap/base.html" %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Todo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  </head>
+  <body>
+    {% block content %}
+    <div class="container">
+      <h1>Todo List</h1>
+      <div>Add a new Todo list:
+        <form action="{{ url_for('add') }}" method="POST">
+          <input class="input_box" type="text" placeholder="Enter here" name="todoitem">
+          <input type="submit" value="Add item">
+        </form>
+      </div>
+      <div>
+          <h2>Incomplete items</h2>
+          <ol class="alert alert-info" role="alert">
+            {% for todo in Incomplete %}
+            <li style="font-size: 25px;margin-left:30px">{{ todo.text }} <a style="font-size:15px" href="{{ url_for('complete', id=todo.id) }}">(Mark as Complete)</a></li>
+            {% endfor %}
+          </ol>
+          <h2>completed items</h2>
+          <ol class="alert alert-success" role="alert">
+            {% for todo in complete %}
+            <li style="font-size: 25px;margin-left:30px">{{ todo.text }}</li>
+            {% endfor %}
+          </ol>
+      </div>
+    </div>
+      {% endblock %}
+  </body>
+</html>
